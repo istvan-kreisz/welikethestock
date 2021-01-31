@@ -76,7 +76,7 @@ export async function getServerSideProps(context) {
 	const res = await fetch(
 		process.env.NODE_ENV === 'development'
 			? `http://localhost:3000/api/stonks`
-			: 'http://welikethestock.live/api/stonks'
+			: 'https://welikethestock.vercel.app/api/stonks'
 	)
 	const data = await res.json()
 
