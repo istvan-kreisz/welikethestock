@@ -11,6 +11,24 @@ export default function Home(props) {
 	// shortInt: '121.07%'
 	// ticker: 'GME'
 
+	const colors = [
+		'red',
+		'yellow',
+		'cyan',
+		'gold',
+		'deeppink',
+		'orange',
+		'brown',
+		'green',
+		'pink',
+		'silver',
+		'blue',
+		'purple',
+		'tomato',
+	]
+
+	const blocks = props.stocks
+
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -18,10 +36,34 @@ export default function Home(props) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
+			<header className={styles.header}>
+				<h1>Top 50 stocks with the highest short interest.</h1>
+				<h3>Not sure what that means or whether you should invest.</h3>
+			</header>
+
 			<main className={styles.main}>
-				{props.stocks.map((stock) => {
-					return <h1 key={stock.ticker}>{stock.company}</h1>
-				})}
+				<section className={styles.stonks}>
+					{blocks.map((stock) => {
+						const height = Math.random() * 250 + 180
+						const width = Math.random() * 250 + 180
+						const color = colors[Math.floor(Math.random() * colors.length)]
+
+						return (
+							<a
+								style={{ height: height, width: width, backgroundColor: color }}
+								className={styles.stonk}
+								href={stock.link}
+								key={stock.ticker}
+							>
+								<h2 className={styles.stonkTitle}>
+									{stock.company + ' (' + stock.ticker + ')'}
+								</h2>
+								<p className={styles.stonkShort}>{`${stock.shortInt}`}</p>
+								<p className={styles.stonkExchange}>{`${stock.exchange}`}</p>
+							</a>
+						)
+					})}
+				</section>
 			</main>
 		</div>
 	)
