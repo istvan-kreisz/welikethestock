@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import { InlineShareButtons } from 'sharethis-reactjs'
 
 export default function Home(props) {
 	const colors = [
@@ -43,6 +44,28 @@ export default function Home(props) {
 				</div>
 				<img className={styles.doge} src="doge.png" alt="" />
 			</header>
+
+			<InlineShareButtons
+				config={{
+					alignment: 'center', // alignment of buttons (left, center, right)
+					color: 'social', // set the color of buttons (social, white)
+					enabled: true, // show/hide buttons (true, false)
+					font_size: 14, // font size for the buttons
+					labels: 'cta', // button labels (cta, counts, null)
+					language: 'en', // which language to use (see LANGUAGES)
+					networks: ['facebook', 'messenger', 'twitter', 'email', 'sms'],
+					padding: 12, // padding within buttons (INTEGER)
+					radius: 20, // the corner radius on each button (INTEGER)
+					show_total: false,
+					size: 40, // the size of each button (INTEGER)
+
+					// OPTIONAL PARAMETERS
+					description: 'We Like The Stock! - List of most shorted stocks.', // (defaults to og:description or twitter:description)
+					title: 'We Like The Stock! - List of most shorted stocks.', // (defaults to og:title or twitter:title)
+					subject: 'We Like The Stock! - List of most shorted stocks.', // (only for email sharing)
+					username: 'IKreisz', // (only for twitter sharing)
+				}}
+			/>
 
 			<main className={styles.main}>
 				<section className={styles.stonks}>
