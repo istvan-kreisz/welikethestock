@@ -2,15 +2,6 @@ import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 
 export default function Home(props) {
-	// company: 'GameStop Corp.'
-	// exchange: 'NYSE'
-	// float: '51.03M'
-	// industry: 'Retail (Technology)'
-	// link: 'https://finance.yahoo.com/q?s=GME'
-	// outstd: '69.75M'
-	// shortInt: '121.07%'
-	// ticker: 'GME'
-
 	const colors = [
 		'red',
 		'yellow',
@@ -36,9 +27,21 @@ export default function Home(props) {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
+			<h1 className={styles.title} style={{ fontFamily: 'the_king_of_wallregular' }}>
+				We Like The Stock!
+			</h1>
+
 			<header className={styles.header}>
-				<h1>Top 50 stocks with the highest short interest.</h1>
-				<h3>Not sure what that means or whether you should invest.</h3>
+				<img className={styles.memeMan} src="stonks.png" alt="" />
+				<div className={styles.headerText}>
+					<h1 className={styles.headerTitle}>
+						Top 50 stocks with the highest short interest
+					</h1>
+					<h3 className={styles.headerSubtitle}>
+						PS: Not sure what that means or whether you should invest
+					</h3>
+				</div>
+				<img className={styles.doge} src="doge.png" alt="" />
 			</header>
 
 			<main className={styles.main}>
@@ -70,7 +73,11 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-	const res = await fetch(`http://localhost:3000/api/stonks`)
+	const res = await fetch(
+		process.env.NODE_ENV === 'development'
+			? `http://localhost:3000/api/stonks`
+			: 'http://welikethestock.live/api/stonks'
+	)
 	const data = await res.json()
 
 	if (!data) {
