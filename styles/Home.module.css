@@ -129,6 +129,7 @@
 
 .stonk {
 	margin: 1rem;
+	padding: 0.8rem;
 	background-color: red;
 	display: flex;
 	flex-direction: column;

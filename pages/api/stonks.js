@@ -57,7 +57,7 @@ export default (req, res) => {
 		res.status(200).json(json)
 	} else {
 		scraperapiClient
-			.get('https://www.highshortinterest.com/')
+			.get('https://www.highshortinterest.com/', { country_code: 'US' })
 			.then((html) => {
 				const json = parse(html)
 				res.status(200).json(json)
