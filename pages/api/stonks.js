@@ -1,5 +1,5 @@
 export default (req, res) => {
-	const useMockData = false
+	const useMockData = true
 
 	var scraperapiClient = require('scraperapi-sdk')('1a00545940603ce151c91f38257ae468')
 	var JSSoup = require('jssoup').default
@@ -57,7 +57,7 @@ export default (req, res) => {
 		res.status(200).json(json)
 	} else {
 		scraperapiClient
-			.get('https://www.highshortinterest.com/')
+			.get('https://www.highshortinterest.com/', { country_code: 'US' })
 			.then((html) => {
 				const json = parse(html)
 				res.status(200).json(json)

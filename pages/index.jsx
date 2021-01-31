@@ -1,7 +1,8 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
+import 'firebase/functions'
 
-export default function Home(props) {
+export default function Home({ functions, ...props }) {
 	const colors = [
 		'red',
 		'yellow',
@@ -17,6 +18,20 @@ export default function Home(props) {
 		'purple',
 		'tomato',
 	]
+
+	if (process.env.NODE_ENV === 'development') {
+		functions.useEmulator('http://localhost', '5001')
+	}
+	const getStonks = functions?.httpsCallable('getStonks')
+
+	getStonks()
+		.then((result) => {
+			console.log('-----')
+			console.log(data)
+		})
+		.catch((err) => {
+			console.log(err)
+		})
 
 	const blocks = props.stocks
 
@@ -77,12 +92,13 @@ export default function Home(props) {
 }
 
 export async function getServerSideProps(context) {
-	const res = await fetch(
-		process.env.NODE_ENV === 'development'
-			? `http://localhost:3000/api/stonks`
-			: 'https://welikethestock.vercel.app/api/stonks'
-	)
-	const data = await res.json()
+	if (process.env.NODE_ENV === 'development') {
+		functions.useEmulator('http://localhost', '5001')
+	}
+	const getStonks = functions?.httpsCallable('getStonks')
+
+	const data = await getStonks()
+	console.log(data)
 
 	if (!data) {
 		return {
