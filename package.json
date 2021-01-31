@@ -1,15 +1,17 @@
 {
-  "name": "stonks",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "next": "10.0.6",
-    "react": "17.0.1",
-    "react-dom": "17.0.1"
-  }
+	"name": "stonks",
+	"version": "0.1.0",
+	"private": true,
+	"scripts": {
+		"dev": "next dev",
+		"build": "next build",
+		"start": "next start"
+	},
+	"dependencies": {
+		"jssoup": "^0.0.12",
+		"next": "10.0.6",
+		"react": "17.0.1",
+		"react-dom": "17.0.1",
+		"scraperapi-sdk": "^1.0.6"
+	}
 }
