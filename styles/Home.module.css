@@ -4,7 +4,7 @@
 }
 
 .title {
-	font-size: 9rem;
+	font-size: 6rem;
 	color: yellow;
 	margin-bottom: 1rem;
 	text-align: center;
@@ -18,7 +18,7 @@
 }
 
 .headerTitle {
-	font-size: 3rem;
+	font-size: 2rem;
 	color: white;
 	font-weight: 900;
 	margin-bottom: 1rem;
@@ -38,6 +38,7 @@
 	width: 180px;
 	height: 202px;
 	order: 0;
+	margin-bottom: 2rem;
 }
 
 .doge {
@@ -47,37 +48,47 @@
 }
 
 @media (min-width: 1200px) {
+	.title {
+		font-size: 9rem;
+	}
+
+	.headerTitle {
+		font-size: 3rem;
+	}
+
 	.headerText {
-		flex-basis: unset;
+		flex-basis: 500px;
+		margin: 3rem;
 	}
 
 	.memeMan {
 		width: 275px;
 		height: 309px;
 		margin-top: 3rem;
+		margin-bottom: 0;
 	}
 
 	.doge {
 		order: 4;
 	}
+
+	.stonk {
+		margin: 2rem;
+	}
 }
 
 .headerText {
-	width: 500px;
-	height: 250px;
 	color: white;
-	/* border: 3px solid black;
-	background-color: goldenrod; */
 	text-align: center;
 	display: flex;
 	flex-direction: column;
 	padding: 1rem;
-	margin: 6rem;
 	margin-top: 2rem;
 }
 
 .container {
 	min-height: 100vh;
+	min-width: 100vw;
 	padding: 0;
 	display: flex;
 	flex-direction: column;
@@ -87,15 +98,17 @@
 }
 
 .stonks {
+	max-width: 100%;
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
 	padding: 5rem 0;
 
-	padding-left: 0;
 	justify-items: center;
 	align-items: center;
 	justify-content: center;
+
+	overflow: hidden;
 }
 
 .stonkTitle {
@@ -115,7 +128,7 @@
 }
 
 .stonk {
-	margin: 2rem;
+	margin: 1rem;
 	background-color: red;
 	display: flex;
 	flex-direction: column;

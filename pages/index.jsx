@@ -53,7 +53,11 @@ export default function Home(props) {
 
 						return (
 							<a
-								style={{ height: height, width: width, backgroundColor: color }}
+								style={{
+									height: height,
+									width: `min(${width}, 100%)`,
+									backgroundColor: color,
+								}}
 								className={styles.stonk}
 								href={stock.link}
 								key={stock.ticker}
