@@ -2,7 +2,7 @@ html,
 body {
 	padding: 0;
 	margin: 0;
-	font-family: 'Comic Sans MS', 'Comic Sans', cursive;
+	font-family: 'comic_sans_msregular', sans-serif;
 }
 
 body {
@@ -23,6 +23,13 @@ a {
 	font-family: 'the_king_of_wallregular';
 	src: url('/the_king_of_wall-webfont.woff2') format('woff2'),
 		url('/the_king_of_wall-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'comic_sans_msregular';
+	src: url('/comic-webfont.woff2') format('woff2'), url('/comic-webfont.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 }

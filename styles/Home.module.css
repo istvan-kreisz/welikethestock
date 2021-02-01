@@ -102,7 +102,7 @@
 	display: flex;
 	flex-wrap: wrap;
 	flex-direction: row;
-	padding: 5rem 0;
+	padding: 5rem 0 0;
 
 	justify-items: center;
 	align-items: center;
@@ -113,7 +113,7 @@
 
 .stonkTitle {
 	text-align: center;
-	font-weight: 800;
+	font-weight: 900;
 }
 
 .stonkShort {
@@ -141,4 +141,28 @@
 .stonk img {
 	width: 100%;
 	height: 100%;
+}
+
+.linkContainer {
+	display: flex;
+	justify-content: center;
+	margin: 2rem;
+}
+
+.linkContainer a {
+	margin: 0 auto;
+	display: flex;
+	align-items: center;
+	margin: 0 1rem;
+}
+
+.linkContainer a p {
+	font-size: 1.1rem;
+	color: white;
+	margin-right: 0.5rem;
+}
+
+.linkContainer a img {
+	height: 20px;
+	opacity: 0.7;
 }

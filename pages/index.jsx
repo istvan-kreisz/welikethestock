@@ -24,8 +24,32 @@ export default function Home(props) {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Stonks</title>
+				<title>We Like The Stock!</title>
 				<link rel="icon" href="/favicon.ico" />
+
+				<meta name="description" content="Top 50 most shorted stocks" />
+				{/* og */}
+				<meta property="og:type" content="website" />
+				<meta property="og:title" content="Stonks" />
+				<meta property="og:description" content="Top 50 most shorted stocks" />
+				<meta property="og:site_name" content="We Like The Stock!" />
+				<meta
+					property="og:image"
+					content="https://welikethestock.live/facebookThumbnail.png"
+				/>
+				<meta property="og:image:width" content="1200" />
+				<meta property="og:image:height" content="627" />
+				{/* twitter */}
+				<meta name="twitter:card" content="summary" />
+				<meta name="twitter:title" content="We Like The Stock!" />
+				<meta name="twitter:description" content="Top 50 most shorted stocks" />
+				<meta name="twitter:creator" content="@IKreisz" />
+				<meta
+					property="twitter:image"
+					content="https://welikethestock.live/twitterThumbnail.png"
+				/>
+				<meta httpEquiv="Content-Type" content="text/html; charset=utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 			</Head>
 
 			<h1 className={styles.title} style={{ fontFamily: 'the_king_of_wallregular' }}>
@@ -39,7 +63,7 @@ export default function Home(props) {
 						Top 50 stocks with the highest short interest
 					</h1>
 					<h3 className={styles.headerSubtitle}>
-						PS: Not sure what that means or whether you should invest
+						Disclaimer: Not sure what that means or whether you should invest
 					</h3>
 				</div>
 				<img className={styles.doge} src="doge.png" alt="" />
@@ -95,6 +119,14 @@ export default function Home(props) {
 					})}
 				</section>
 			</main>
+			<footer>
+				<div className={styles.linkContainer}>
+					<a href="https://twitter.com/IKreisz" className={styles.socialLinkButton}>
+						<p>Follow me on Twitter!</p>
+						<img src="/twitter-blue.svg" alt="" />
+					</a>
+				</div>
+			</footer>
 		</div>
 	)
 }
