@@ -58,71 +58,89 @@ export default (req, res) => {
 		const json = parse(html)
 		res.status(200).json(json)
 	} else {
-		const redis = require('redis')
-		var client = redis.createClient({
-			host: 'us1-pet-narwhal-31820.lambda.store',
-			port: '31820',
-			password: '11e636e00bf240d88eaccb40b6dcd2f4',
-			tls: {},
-		})
-		const get = promisify(client.get).bind(client)
-		const set = promisify(client.set).bind(client)
+		return new Promise((resolve, reject) => {
+			const redis = require('redis')
+			var client = redis.createClient({
+				host: 'us1-pet-narwhal-31820.lambda.store',
+				port: '31820',
+				password: '11e636e00bf240d88eaccb40b6dcd2f4',
+				tls: {},
+			})
+			const get = promisify(client.get).bind(client)
+			const set = promisify(client.set).bind(client)
 
-		const useScraper = () => {
-			scraperapiClient
-				.get('https://www.highshortinterest.com/')
-				.then((html) => {
-					const json = parse(html)
+			const useScraper = () => {
+				scraperapiClient
+					.get('https://www.highshortinterest.com/')
+					.then((html) => {
+						const json = parse(html)
 
-					set('updated', `${new Date().getTime()}`)
-						.then((result) => {
-							set('stocks', JSON.stringify(json))
-								.then((result) => {
-									client.quit()
-									res.status(200).json(json)
-								})
-								.catch((err) => {
-									client.quit()
-									res.status(200).json(json)
-								})
-						})
-						.catch((err) => {
-							client.quit()
-							res.status(200).json(json)
-						})
+						set('updated', `${new Date().getTime()}`)
+							.then((result) => {
+								set('stocks', JSON.stringify(json))
+									.then((result) => {
+										client.quit()
+										res.status(200).json(json)
+										return resolve()
+									})
+									.catch((err) => {
+										client.quit()
+										res.status(200).json(json)
+										return resolve()
+									})
+							})
+							.catch((err) => {
+								client.quit()
+								res.status(200).json(json)
+								return resolve()
+							})
+					})
+					.catch((err) => {
+						get('stocks')
+							.then((result) => {
+								const stocks = JSON.parse(result)
+								if (stocks) {
+									res.status(200).json(stocks)
+									return resolve()
+								} else {
+									res.sendStatus(500)
+									return resolve()
+								}
+							})
+							.catch((err) => {
+								console.log(err)
+								res.sendStatus(500)
+								return resolve()
+							})
+					})
+			}
+
+			get('updated')
+				.then((result) => {
+					const time = parseFloat(result)
+					if (time && time > new Date().getTime() - 1200 * 1000) {
+						get('stocks')
+							.then((result) => {
+								const stocks = JSON.parse(result)
+								if (stocks) {
+									res.status(200).json(stocks)
+									return resolve()
+								} else {
+									useScraper()
+								}
+							})
+							.catch((err) => {
+								console.log(err)
+								useScraper()
+							})
+					} else {
+						useScraper()
+					}
 				})
 				.catch((err) => {
 					console.log(err)
-					res.status(400)
-				})
-		}
-
-		get('updated')
-			.then((result) => {
-				console.log(result)
-				const time = parseFloat(result)
-				if (time && time > new Date().getTime() - 1200 * 1000) {
-					get('stocks')
-						.then((result) => {
-							const stocks = JSON.parse(result)
-							if (stocks) {
-								console.log('yoooo')
-								res.status(200).json(stocks)
-							} else {
-								useScraper()
-							}
-						})
-						.catch((err) => {
-							console.log(err)
-							useScraper()
-						})
-				} else {
 					useScraper()
-				}
-			})
-			.catch((err) => {
-				console.log(err)
-				useScraper()
-			})
+				})
+		})
 	}
 }
