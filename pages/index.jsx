@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { InlineShareButtons } from 'sharethis-reactjs'
+import { useState, useEffect } from 'react'
 
 export default function Home(props) {
 	const colors = [
@@ -20,6 +21,22 @@ export default function Home(props) {
 	]
 
 	const blocks = props.stocks
+
+	const [config, setConfig] = useState()
+
+	useEffect(() => {
+		if (blocks.length) {
+			setConfig(
+				blocks.map((element, index) => {
+					const height = Math.random() * 250 + 180
+					const width = Math.random() * 250 + 180
+					const color = colors[Math.floor(Math.random() * colors.length)]
+
+					return { width: width, height: height, color: color }
+				})
+			)
+		}
+	}, [blocks])
 
 	return (
 		<div className={styles.container}>
@@ -93,30 +110,30 @@ export default function Home(props) {
 
 			<main className={styles.main}>
 				<section className={styles.stonks}>
-					{blocks.map((stock) => {
-						const height = Math.random() * 250 + 180
-						const width = Math.random() * 250 + 180
-						const color = colors[Math.floor(Math.random() * colors.length)]
-
-						return (
-							<a
-								style={{
-									height: height,
-									width: `min(${width}, 100%)`,
-									backgroundColor: color,
-								}}
-								className={styles.stonk}
-								href={stock.link}
-								key={stock.ticker}
-							>
-								<h2 className={styles.stonkTitle}>
-									{stock.company + ' (' + stock.ticker + ')'}
-								</h2>
-								<p className={styles.stonkShort}>{`${stock.shortInt}`}</p>
-								<p className={styles.stonkExchange}>{`${stock.exchange}`}</p>
-							</a>
-						)
-					})}
+					{config
+						? blocks.map((stock, index) => {
+								return (
+									<a
+										style={{
+											height: config[index].height,
+											width: `min(${config[index].width}, 100%)`,
+											backgroundColor: config[index].color,
+										}}
+										className={styles.stonk}
+										href={stock.link}
+										key={stock.ticker}
+									>
+										<h2 className={styles.stonkTitle}>
+											{stock.company + ' (' + stock.ticker + ')'}
+										</h2>
+										<p className={styles.stonkShort}>{`${stock.shortInt}`}</p>
+										<p
+											className={styles.stonkExchange}
+										>{`${stock.exchange}`}</p>
+									</a>
+								)
+						  })
+						: null}
 				</section>
 			</main>
 			<footer>

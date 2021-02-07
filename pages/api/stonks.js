@@ -100,20 +100,28 @@ export default (req, res) => {
 							.then((result) => {
 								const stocks = JSON.parse(result)
 								if (stocks) {
+									client.quit()
 									res.status(200).json(stocks)
 									return resolve()
 								} else {
+									client.quit()
 									res.sendStatus(500)
 									return resolve()
 								}
 							})
 							.catch((err) => {
 								console.log(err)
+								client.quit()
 								res.sendStatus(500)
 								return resolve()
 							})
 					})
 			}
+
+			client.on('error', function (err) {
+				console.log('shiiiiiit')
+				useScraper()
+			})
 
 			get('updated')
 				.then((result) => {
@@ -123,6 +131,7 @@ export default (req, res) => {
 							.then((result) => {
 								const stocks = JSON.parse(result)
 								if (stocks) {
+									client.quit()
 									res.status(200).json(stocks)
 									return resolve()
 								} else {
