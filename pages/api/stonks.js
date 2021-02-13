@@ -126,7 +126,7 @@ export default (req, res) => {
 			get('updated')
 				.then((result) => {
 					const time = parseFloat(result)
-					if (time && time > new Date().getTime() - 1200 * 1000) {
+					if (time && time > new Date().getTime() - 1800 * 1000) {
 						get('stocks')
 							.then((result) => {
 								const stocks = JSON.parse(result)
